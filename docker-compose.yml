@@ -1,8 +1,8 @@
 version: '3'
 services:
   api:
-    image: gtidocker7/api-insta-dev:v1
-    container_name: api-insta-dev
+    image: gtidocker7/api-frontendtest-dev:v1
+    container_name: api-frontendtest-dev
     build: .
     networks:
       - default
@@ -11,8 +11,8 @@ services:
     volumes:
       - .:/app
     environment:
-      VIRTUAL_HOST: api.insta.dev.griyatekno.id
-      LETSENCRYPT_HOST: api.insta.dev.griyatekno.id
+      VIRTUAL_HOST: api.frontendtest.dev.griyatekno.id
+      LETSENCRYPT_HOST: api.frontendtest.dev.griyatekno.id
 
 networks:
     default:

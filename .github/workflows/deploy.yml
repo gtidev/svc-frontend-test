@@ -1,0 +1,36 @@
+name: Deploy SSH
+on: [push]
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.GTI_HOST }}
+        username: ${{ secrets.GTI_USERNAME }}
+        password: ${{ secrets.GTI_PASSWORD }}
+        port: ${{ secrets.GTI_PORT }}
+        script: |
+          cd app/api/exam/svc-frontend-test/
+          git pull origin development
+          ls -la
+          sed -i -e 's/__ENV__/dev/g' template.config.js
+          sed -i -e 's/__SERVICE_NAME__/SVC User/g' template.config.js
+          sed -i -e 's/__PORT__/5000/g' template.config.js
+          # ---
+            sed -i -e 's/__PASSWORD_KEY__/gtitoken/g' template.config.js
+          # ---
+          sed -i -e 's/__DB_DATABASE__/core/g' template.config.js
+          sed -i -e 's/__DB_USERNAME__/gtidev/g' template.config.js
+          sed -i -e 's/__DB_PASSWORD__/Gti300118/g' template.config.js
+          sed -i -e 's/__DB_HOST__/185.210.144.214/g' template.config.js
+          sed -i -e 's/__DB_DIALECT__/mysql/g' template.config.js
+          sed -i -e 's/__DB_PORT__/3306/g' template.config.js
+          # ---
+          sed -i -e 's/__DB_SYNC__/false/g' template.config.js
+          mv template.config.js config.js
+          npm install
+          echo "success pull on server | Development"
