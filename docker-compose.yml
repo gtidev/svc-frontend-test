@@ -1,0 +1,20 @@
+version: '3'
+services:
+  api:
+    image: gtidocker7/api-insta-dev:v1
+    container_name: api-insta-dev
+    build: .
+    networks:
+      - default
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      VIRTUAL_HOST: api.insta.dev.griyatekno.id
+      LETSENCRYPT_HOST: api.insta.dev.griyatekno.id
+
+networks:
+    default:
+        external:
+            name: nginx-proxy
