@@ -21,9 +21,7 @@ const response = require('./app/helper/response');
 const globalmiddleware = require('./app/middleware/global');
 
 app.use(express.static(path.resolve('./../uploaded')));
-app.use(cors({
-  origin: "*",
-}));
+app.use(cors());
 
 // Body parser
 app.use(bodyParser.urlencoded({ extended: true }));
