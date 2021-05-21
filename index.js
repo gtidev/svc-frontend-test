@@ -22,7 +22,7 @@ const globalmiddleware = require('./app/middleware/global');
 
 app.use(express.static(path.resolve('./../uploaded')));
 app.use(cors({
-  origin: config.get('UI_ADDRESS'),
+  origin: "*",
 }));
 
 // Body parser
