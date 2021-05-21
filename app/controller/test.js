@@ -89,7 +89,7 @@ exports.login = async (req, res, next, additional = {}) => {
     checkempty(username, 'username');
     checkempty(password, 'password');
 
-    const userData = await takeonewhere(Knex, 'test_user', { username, password });
+    const userData = await takeonewhere(Knex, 'test_user', { username, password: jwt.encode(password, 'sha1') });
     if (!userData) throw errhandler('Username or password wrong.', body, 400);
     if (userData.is_active === false) throw errhandler('This user is not active.', body, 400);
     if (userData.deleted_at) throw errhandler('This has been deleted.', body, 400);
