@@ -1,0 +1,20 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  var form = new FormData();
+  form.append("username", "cobacoba3");
+  form.append("password", "testing1234");
+
+  var settings = {
+    "url": "https://api.frontendtest.dev.griyatekno.id/login",
+    "method": "POST",
+    "timeout": 0,
+    "processData": false,
+    "mimeType": "multipart/form-data",
+    "contentType": false,
+    "data": form
+  };
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+</script>

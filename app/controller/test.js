@@ -113,7 +113,7 @@ exports.login = async (req, res, next, additional = {}) => {
   }
 };
 
-exports.profile = async (req, res, next, additional = {}) => {
+const profile = async (req, res, next, additional = {}) => {
   let { transKnex: pTransKnex, dataOnly, overBody, overParams, overQuery } = additional;
   let { Knex, Config, body, params, query, headers } = req;
   const transKnex = pTransKnex || await Knex.transaction();
@@ -131,6 +131,7 @@ exports.profile = async (req, res, next, additional = {}) => {
     const { id, username } = decrypt;
 
     const userData = await takeonewhere(Knex, 'test_user', { id, username, is_active: true, deleted_at: null });
+    if (!userData) throw errhandler('User cannot be found.', null, 400);
     delete userData.password;
     result = userData;
 
@@ -146,6 +147,7 @@ exports.profile = async (req, res, next, additional = {}) => {
     response(res, e.code || 500, e.message, e.data || null);
   }
 };
+exports.profile = profile;
 
 exports.update = async (req, res, next, additional = {}) => {
   let { transKnex: pTransKnex, dataOnly, overBody, overParams, overQuery } = additional;
