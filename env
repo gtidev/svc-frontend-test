@@ -1,0 +1,9 @@
+ENV=dev
+PORT=3000
+
+DB_DATABASE=core
+DB_USERNAME=root
+DB_PASSWORD=root
+DB_HOST=localhost
+DB_DIALECT=mysql
+DB_PORT=3306
