@@ -128,9 +128,9 @@ const profile = async (req, res, next, additional = {}) => {
     checkempty(token, 'token');
 
     const decrypt = await jwt.check(token, 'aes');
-    const { id, username } = decrypt;
+    const { id } = decrypt;
 
-    const userData = await takeonewhere(Knex, 'test_user', { id, username, is_active: true, deleted_at: null });
+    const userData = await takeonewhere(Knex, 'test_user', { id, is_active: true, deleted_at: null });
     if (!userData) throw errhandler('User cannot be found.', null, 400);
     delete userData.password;
     result = userData;
