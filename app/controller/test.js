@@ -170,7 +170,7 @@ exports.update = async (req, res, next, additional = {}) => {
     const prepare = {};
 
     if (checkempty(username, 'username', true)) prepare.username = username;
-    if (checkempty(password, 'password', true)) prepare.password = password;
+    if (checkempty(password, 'password', true)) prepare.password = jwt.encode(password, 'sha1');
     if (checkempty(role, 'role', true))
       if (![
         'user',
